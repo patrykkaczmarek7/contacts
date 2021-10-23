@@ -1,0 +1,88 @@
+<div class="nav justify-content-center">
+  <button  type="button" class="btn btn-outline-success me-2" (click)="clickAddContact()" data-bs-toggle="modal"
+    data-bs-target="#exampleModal">Dodaj kontakt</button>
+</div>
+
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Pseudonim</th>
+      <th scope="col">Imię</th>
+      <th scope="col">Nazwisko</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Telefon</th>
+      <th scope="col">Płeć</th>
+      <th scope="col">Akcje</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let row of contactsData">
+      <td>{{row.nick}}</td>
+      <td>{{row.firstName}}</td>
+      <td>{{row.lastName}}</td>
+      <td>{{row.email}}</td>
+      <td>{{row.telefon}}</td>
+      <td>{{row.gender}}</td>
+      <td>
+        <button routerLink="details" routerLinkActive="active" type="button"
+          class="btn btn-primary m-1">Szczegóły</button>
+        <button type="button" (click)="onEdit(row)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          class="btn btn-secondary m-1">Edytuj</button>
+        <button type="button" (click)="deleteContact(row)" class="btn btn-danger m-1">Usuń</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="jumbotron">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dane kontaktu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Pseudonim</label>
+            <input type="text" formControlName="nick" class="form-control" id="exampleInputEmail1"
+              aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Imię</label>
+            <input type="text" formControlName="firstName" class="form-control" id="exampleInputEmail1"
+              aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Nazwisko</label>
+            <input type="text" formControlName="lastName" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">E-mail</label>
+            <input type="text" formControlName="email" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Telefon</label>
+            <input type="text" formControlName="telefon" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Płeć</label>
+            <input type="text" formControlName="gender" class="form-control" id="exampleInputPassword1">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+        <button type="button" *ngIf="showAdd2" (click)="postContactDetails()" class="btn btn-primary">Dodaj</button>
+        <button type="button" *ngIf="showUpdate" (click)="updateContactDetails()"
+          class="btn btn-primary">Uaktualnij</button>
+      </div>
+    </div>
+  </div>
+</div>
